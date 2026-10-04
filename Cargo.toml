@@ -1,0 +1,32 @@
+[package]
+name = "tui-file-manager"
+version = "0.1.0"
+edition = "2021"
+description = "A terminal file manager with Miller columns, previews built off the main thread, background copy and move, recursive search and bookmarks."
+license = "MIT"
+
+[lib]
+name = "filemgr"
+
+[[bin]]
+name = "fm"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+crossterm = "0.28"
+serde = { version = "1", features = ["derive"] }
+toml = "0.9"
+trash = "5"
+unicode-width = "0.2"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_UI_Shell", "Win32_UI_WindowsAndMessaging", "Win32_Storage_FileSystem", "Win32_Foundation", "Win32_System_Time"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+lto = true
+codegen-units = 1
+debug = false
